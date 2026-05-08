@@ -291,12 +291,12 @@ textarea.finput{min-height:72px;resize:none;line-height:1.6}
 .tface-kw{font-size:9px;opacity:.75;font-weight:600}
 .tarot-hint-txt{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:10px;text-align:center}
 .tarot-result-box{
-  background:linear-gradient(135deg,rgba(30,18,64,0.9),rgba(80,25,65,0.8));
-  border:1px solid rgba(196,181,253,0.25);border-radius:16px;padding:18px;
-  color:rgba(255,255,255,.88);font-size:13px;line-height:1.9;white-space:pre-wrap;
-  margin-top:10px;
+  background:linear-gradient(135deg,#FFF5FA,#F3E8FF);
+  border:1.5px solid rgba(184,155,255,0.5);border-radius:18px;padding:18px;
+  color:#4A3260;font-size:14px;line-height:1.85;white-space:pre-wrap;word-break:break-word;
+  margin-top:14px;box-shadow:0 6px 24px rgba(255,168,197,.25);
 }
-.result-title{font-size:15px;font-weight:900;color:var(--gold);margin-bottom:10px}
+.result-title{font-size:16px;font-weight:900;color:#FF6FA3;margin-bottom:10px;text-align:center}
 
 /* ══════ COMMUNITY ══════ */
 .seg{display:flex;background:rgba(255,255,255,0.06);border-radius:14px;padding:4px;gap:3px;margin-bottom:14px;border:1px solid var(--border)}
@@ -525,9 +525,9 @@ textarea.finput{min-height:72px;resize:none;line-height:1.6}
     <div class="tarot-hint-txt" id="tarotHint">반짝이는 카드 3장을 골라주세요 ✨</div>
     <div class="cards-grid" id="cardsGrid"></div>
     <button class="btn btn-gold" id="tarotReadBtn" onclick="doReading()" style="display:none">🔮 운세 보기</button>
-    <div id="tarotResult"></div>
-    <button class="btn btn-glass" onclick="reshuffleTarot()" style="margin-top:10px;font-size:13px">🔄 카드 다시 섞기</button>
   </div>
+  <div id="tarotResult"></div>
+  <button class="btn btn-glass" onclick="reshuffleTarot()" style="margin-top:10px;font-size:13px;width:100%">🔄 카드 다시 섞기</button>
 </div>
 
 <!-- ──── COMMUNITY ──── -->
@@ -1088,7 +1088,9 @@ async function doReading(){
     const txt=await callAI(`반려동물: ${pn}\n타로카드: ${sel.map(c=>`${c.emoji}${c.name}(${c.kw})`).join(', ')}\n\n오늘 ${pn}의 운세를 귀엽고 따뜻하게 해석해주세요. 오전/오후/저녁 흐름 + 오늘의 행운 간식 또는 행동 한 가지 추천. 150자 이내.`);
     document.getElementById('tarotResult').innerHTML=`<div class="tarot-result-box"><div class="result-title">🔮 ${pn}의 오늘 운세</div>${txt}</div>`;
     addXP(5);
-  }catch{ document.getElementById('tarotResult').innerHTML='<div class="tarot-result-box">오류가 발생했어요. 다시 시도해주세요.</div>'; }
+  }catch(err){ console.error('타로 오류:',err); document.getElementById('tarotResult').innerHTML='<div class="tarot-result-box">오류가 발생했어요: '+(err&&err.message?err.message:'알 수 없는 오류')+'<br>다시 시도해주세요.</div>'; }
+  // 결과 영역으로 자동 스크롤
+  setTimeout(()=>{document.getElementById('tarotResult').scrollIntoView({behavior:'smooth',block:'center'});},120);
   btn.textContent='🔄 다시 뽑기'; btn.disabled=false; btn.onclick=reshuffleTarot;
 }
 
