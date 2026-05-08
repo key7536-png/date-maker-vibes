@@ -781,7 +781,21 @@ function renderHome(){
       </div></div>`;
     renderVlog(todayEntry);
   } else {
-    tw.innerHTML=`<div class="empty" style="padding:24px 0"><div class="empty-icon">📷</div><p>아직 오늘 기록이 없어요<br>첫 번째 순간을 남겨보세요!</p></div>`;
+    const pets=DB.pets||[];
+    if(pets.length){
+      const cards=pets.map(p=>{
+        const visual=p.imageData
+          ?`<img src="${p.imageData}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover">`
+          :`<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:72px;background:linear-gradient(135deg,#FFE0EC,#F3E4FF)">${p.emoji||'🐾'}</div>`;
+        return `<div class="pet-photo-card" onclick="startEntryFor('${p.id}')">
+          <div class="pet-photo-img">${visual}<div class="pet-photo-edit">📷 변경</div></div>
+          <div class="pet-photo-name">${p.emoji||'🐾'} ${p.name}<span style="font-size:11px;color:var(--txt3);font-weight:600;margin-left:6px">눌러서 오늘 기록</span></div>
+        </div>`;
+      }).join('');
+      tw.innerHTML=`<div class="pet-photos-wrap">${cards}</div>`;
+    } else {
+      tw.innerHTML=`<div class="empty" style="padding:24px 0"><div class="empty-icon">📷</div><p>아직 오늘 기록이 없어요<br>첫 번째 순간을 남겨보세요!</p></div>`;
+    }
     document.getElementById('vlogWrap').innerHTML='';
   }
 }
