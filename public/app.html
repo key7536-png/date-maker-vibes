@@ -11,14 +11,14 @@
 
 /* ══════ DESIGN TOKENS - 귀여운 파스텔 + 가독성 ══════ */
 :root{
-  --bg0:#FFF5F8;--bg1:#FFEBF0;--bg2:#FFE5EC;
-  --glass:rgba(255,255,255,0.85);--glass2:rgba(255,255,255,0.95);
-  --border:rgba(255,182,193,0.25);--border2:rgba(255,182,193,0.4);
-  --rose:#FF6B88;--rose2:#FF91A4;--roseDark:#E84C6F;
-  --gold:#FFB347;--gold2:#FFD166;
-  --lilac:#B8A4D4;--lilac2:#D4C5E8;
-  --teal:#7FCFB8;
-  --txt:#2D1B3D;--txt2:#5D4E6D;--txt3:rgba(45,27,61,0.5);
+  --bg0:#FFF0F6;--bg1:#FFE0EC;--bg2:#F3E4FF;
+  --glass:rgba(255,255,255,0.88);--glass2:rgba(255,255,255,0.96);
+  --border:rgba(255,182,213,0.35);--border2:rgba(216,180,254,0.5);
+  --rose:#FF8FB8;--rose2:#FFA8C5;--roseDark:#FF6FA3;
+  --gold:#FFC971;--gold2:#FFD98A;
+  --lilac:#C9B6FF;--lilac2:#E0D4FF;
+  --teal:#A6E8D4;
+  --txt:#4A3260;--txt2:#7A6790;--txt3:rgba(74,50,96,0.5);
   --radius:18px;--radius2:24px
 }
 
@@ -105,7 +105,7 @@ body::after{content:'';position:fixed;bottom:100px;right:-80px;width:280px;heigh
 .btn-rose{background:linear-gradient(135deg,var(--roseDark),#ff6b8a);color:#fff;box-shadow:0 4px 20px rgba(255,107,138,0.4)}
 .btn-rose:hover{box-shadow:0 6px 28px rgba(255,107,138,0.6)}
 .btn-gold{background:linear-gradient(135deg,#e6a817,var(--gold));color:#1a1000;box-shadow:0 4px 20px rgba(245,197,66,0.4)}
-.btn-purple{background:linear-gradient(135deg,#5b21b6,var(--lilac));color:#fff;box-shadow:0 4px 20px rgba(124,58,237,0.45)}
+.btn-purple{background:linear-gradient(135deg,#B89BFF,var(--lilac2));color:#fff;box-shadow:0 4px 20px rgba(184,155,255,0.45)}
 .btn-glass{background:var(--glass2);border:1px solid var(--border2);color:var(--txt);backdrop-filter:blur(8px)}
 .btn-glass:hover{background:rgba(255,255,255,0.18)}
 .btn-sm{padding:9px 16px;font-size:13px;border-radius:10px;width:auto}
@@ -171,17 +171,18 @@ textarea.finput{min-height:72px;resize:none;line-height:1.6}
 
 /* ══════ HOME ══════ */
 .hero{
-  background:linear-gradient(135deg,rgba(91,33,182,0.5) 0%,rgba(232,76,111,0.4) 100%);
-  border:1px solid rgba(196,181,253,0.25);
+  background:linear-gradient(135deg,#FFD3E4 0%,#E5D4FF 55%,#FFE5C7 100%);
+  border:1.5px solid rgba(255,182,213,0.5);
   border-radius:var(--radius2);padding:22px 20px;margin-bottom:14px;
   position:relative;overflow:hidden;cursor:pointer;
   transition:transform .2s;
+  box-shadow:0 8px 24px rgba(255,168,197,0.25);
 }
 .hero:active{transform:scale(.98)}
-.hero-glow{position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:radial-gradient(circle,rgba(245,197,66,0.35),transparent 70%);pointer-events:none}
-.hero h2{font-size:22px;font-weight:900;margin-bottom:6px;line-height:1.3}
-.hero p{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6}
-.hero-badge{display:inline-block;background:rgba(245,197,66,0.2);border:1px solid rgba(245,197,66,0.4);color:var(--gold2);font-size:11px;font-weight:800;padding:3px 10px;border-radius:10px;margin-bottom:10px}
+.hero-glow{position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:radial-gradient(circle,rgba(255,217,138,0.5),transparent 70%);pointer-events:none}
+.hero h2{font-size:22px;font-weight:900;margin-bottom:6px;line-height:1.3;color:var(--txt)}
+.hero p{font-size:13px;color:var(--txt2);line-height:1.6}
+.hero-badge{display:inline-block;background:rgba(255,255,255,0.7);border:1px solid rgba(255,182,213,0.5);color:var(--roseDark);font-size:11px;font-weight:800;padding:3px 10px;border-radius:10px;margin-bottom:10px}
 
 /* Avatar row */
 .av-row{
