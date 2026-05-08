@@ -700,7 +700,7 @@ const DEMO_POSTS=[
 ];
 
 // ═══════════════ INIT ═══════════════
-function save(){localStorage.setItem(SK,JSON.stringify(DB))}
+function save(){try{localStorage.setItem(SK,JSON.stringify(DB));return true;}catch(e){console.error('save failed',e);alert('저장 공간이 부족해요. 설정 > 데이터 백업에서 내보낸 뒤, 오래된 기록이나 사진을 정리해주세요.');return false;}}
 function today(){return new Date().toISOString().split('T')[0]}
 function fmt(d){const dt=new Date(d);return `${dt.getMonth()+1}월 ${dt.getDate()}일`}
 
@@ -1324,7 +1324,8 @@ function submitRec(){
   DB.entries=DB.entries||[];
   const ti=DB.entries.findIndex(e=>e.date===today()&&e.petId===petId);
   if(ti>=0) DB.entries[ti]=entry; else DB.entries.push(entry);
-  save(); addXP(10); closeM('recModal'); renderHome();
+  if(!save()){if(ti>=0) DB.entries[ti]=entry; else DB.entries.pop();return;}
+  addXP(10); closeM('recModal'); renderHome();
 }
 
 // ═══════════════ PET FORM ═══════════════
@@ -1369,17 +1370,39 @@ function selC(el,field,val){
   el.closest('.chip-group').querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
   el.classList.add('on'); F[field]=val;
 }
-function prevPic(inp,prevId,hintId){
+function compressImage(file,maxSize,quality){
+  return new Promise((resolve,reject)=>{
+    const r=new FileReader();
+    r.onload=e=>{
+      const img=new Image();
+      img.onload=()=>{
+        let {width:w,height:h}=img;
+        if(w>h){if(w>maxSize){h=Math.round(h*maxSize/w);w=maxSize;}}
+        else{if(h>maxSize){w=Math.round(w*maxSize/h);h=maxSize;}}
+        const c=document.createElement('canvas');
+        c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0,w,h);
+        try{resolve(c.toDataURL('image/jpeg',quality));}catch(err){reject(err);}
+      };
+      img.onerror=reject;
+      img.src=e.target.result;
+    };
+    r.onerror=reject;
+    r.readAsDataURL(file);
+  });
+}
+async function prevPic(inp,prevId,hintId){
   const f=inp.files[0]; if(!f) return;
-  const r=new FileReader();
-  r.onload=e=>{
-    const data=e.target.result;
+  try{
+    const data=await compressImage(f,1024,0.82);
     if(prevId==='pPicPrev') pPicData=data; else rPicData=data;
-    document.getElementById(prevId).src=data;
-    document.getElementById(prevId).style.display='block';
+    const el=document.getElementById(prevId);
+    el.src=data; el.style.display='block';
     document.getElementById(hintId).style.display='none';
-  };
-  r.readAsDataURL(f);
+  }catch(err){
+    alert('사진을 불러오지 못했어요. 다른 사진을 시도해주세요.');
+    console.error(err);
+  }
 }
 
 init();
