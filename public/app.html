@@ -1324,7 +1324,8 @@ function submitRec(){
   DB.entries=DB.entries||[];
   const ti=DB.entries.findIndex(e=>e.date===today()&&e.petId===petId);
   if(ti>=0) DB.entries[ti]=entry; else DB.entries.push(entry);
-  save(); addXP(10); closeM('recModal'); renderHome();
+  if(!save()){if(ti>=0) DB.entries[ti]=entry; else DB.entries.pop();return;}
+  addXP(10); closeM('recModal'); renderHome();
 }
 
 // ═══════════════ PET FORM ═══════════════
