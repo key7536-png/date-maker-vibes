@@ -446,6 +446,13 @@ textarea.finput{min-height:72px;resize:none;line-height:1.6}
 .empty{text-align:center;padding:44px 20px;color:var(--txt3)}
 .empty-icon{font-size:52px;margin-bottom:14px;filter:drop-shadow(0 0 12px rgba(196,181,253,.4))}
 .empty p{font-size:14px;line-height:1.7}
+.pet-photos-wrap{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:6px}
+.pet-photo-card{background:var(--glass);border:1.5px solid var(--border2);border-radius:var(--radius2);overflow:hidden;cursor:pointer;transition:transform .18s,box-shadow .2s;box-shadow:0 6px 20px rgba(255,168,197,.18)}
+.pet-photo-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(255,168,197,.3)}
+.pet-photo-card:active{transform:scale(.98)}
+.pet-photo-img{position:relative;width:100%;height:220px;overflow:hidden;background:linear-gradient(135deg,#FFE0EC,#F3E4FF)}
+.pet-photo-edit{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.9);color:var(--roseDark);font-size:11px;font-weight:800;padding:5px 11px;border-radius:14px;backdrop-filter:blur(6px);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.pet-photo-name{padding:12px 16px;font-size:15px;font-weight:800;color:var(--txt);display:flex;align-items:center}
 
 /* Section header */
 .sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
@@ -781,7 +788,21 @@ function renderHome(){
       </div></div>`;
     renderVlog(todayEntry);
   } else {
-    tw.innerHTML=`<div class="empty" style="padding:24px 0"><div class="empty-icon">📷</div><p>아직 오늘 기록이 없어요<br>첫 번째 순간을 남겨보세요!</p></div>`;
+    const pets=DB.pets||[];
+    if(pets.length){
+      const cards=pets.map(p=>{
+        const visual=p.imageData
+          ?`<img src="${p.imageData}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover">`
+          :`<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:72px;background:linear-gradient(135deg,#FFE0EC,#F3E4FF)">${p.emoji||'🐾'}</div>`;
+        return `<div class="pet-photo-card" onclick="startEntryFor('${p.id}')">
+          <div class="pet-photo-img">${visual}<div class="pet-photo-edit">📷 변경</div></div>
+          <div class="pet-photo-name">${p.emoji||'🐾'} ${p.name}<span style="font-size:11px;color:var(--txt3);font-weight:600;margin-left:6px">눌러서 오늘 기록</span></div>
+        </div>`;
+      }).join('');
+      tw.innerHTML=`<div class="pet-photos-wrap">${cards}</div>`;
+    } else {
+      tw.innerHTML=`<div class="empty" style="padding:24px 0"><div class="empty-icon">📷</div><p>아직 오늘 기록이 없어요<br>첫 번째 순간을 남겨보세요!</p></div>`;
+    }
     document.getElementById('vlogWrap').innerHTML='';
   }
 }
@@ -1281,17 +1302,19 @@ function nextSlide(){if(slideI<slides.length-1){slideI++;showSlide();}}
 function closeSlide(){document.getElementById('slideshow').classList.remove('open');document.body.style.overflow='';}
 
 // ═══════════════ RECORD ═══════════════
-function openRecordModal(){
+function openRecordModal(petId){
   const pets=DB.pets||[];
   if(!pets.length){alert('먼저 반려동물을 등록해주세요 🐾');openM('petModal');return;}
-  F.recPet=pets[0].id;
-  document.getElementById('recPetGrp').innerHTML=pets.map((p,i)=>`<div class="chip${i===0?' on':''}" onclick="selC(this,'recPet','${p.id}')">${p.emoji||'🐾'} ${p.name}</div>`).join('');
+  const idx=petId?Math.max(0,pets.findIndex(p=>p.id===petId)):0;
+  F.recPet=pets[idx].id;
+  document.getElementById('recPetGrp').innerHTML=pets.map((p,i)=>`<div class="chip${i===idx?' on':''}" onclick="selC(this,'recPet','${p.id}')">${p.emoji||'🐾'} ${p.name}</div>`).join('');
   document.getElementById('rMemo').value='';
   document.getElementById('rPicPrev').style.display='none';
   document.getElementById('rPicHint').style.display='flex';
   rPicData=null;
   openM('recModal');
 }
+function startEntryFor(petId){ openRecordModal(petId); }
 function submitRec(){
   const petId=F.recPet||(DB.pets&&DB.pets[0]&&DB.pets[0].id);
   const memo=document.getElementById('rMemo').value.trim();
