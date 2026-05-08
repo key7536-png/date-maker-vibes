@@ -4,21 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>오늘도 귀여웠어 🐾</title>
-<link rel="icon" type="image/png" href="/icon.png">
-<link rel="apple-touch-icon" href="/icon.png">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 
 /* ══════ DESIGN TOKENS - 귀여운 파스텔 + 가독성 ══════ */
 :root{
-  --bg0:#FFF0F6;--bg1:#FFE0EC;--bg2:#F3E4FF;
-  --glass:rgba(255,255,255,0.88);--glass2:rgba(255,255,255,0.96);
-  --border:rgba(255,182,213,0.35);--border2:rgba(216,180,254,0.5);
-  --rose:#FF8FB8;--rose2:#FFA8C5;--roseDark:#FF6FA3;
-  --gold:#FFC971;--gold2:#FFD98A;
-  --lilac:#C9B6FF;--lilac2:#E0D4FF;
-  --teal:#A6E8D4;
-  --txt:#4A3260;--txt2:#7A6790;--txt3:rgba(74,50,96,0.5);
+  --bg0:#FFF5F8;--bg1:#FFEBF0;--bg2:#FFE5EC;
+  --glass:rgba(255,255,255,0.85);--glass2:rgba(255,255,255,0.95);
+  --border:rgba(255,182,193,0.25);--border2:rgba(255,182,193,0.4);
+  --rose:#FF6B88;--rose2:#FF91A4;--roseDark:#E84C6F;
+  --gold:#FFB347;--gold2:#FFD166;
+  --lilac:#B8A4D4;--lilac2:#D4C5E8;
+  --teal:#7FCFB8;
+  --txt:#2D1B3D;--txt2:#5D4E6D;--txt3:rgba(45,27,61,0.5);
   --radius:18px;--radius2:24px
 }
 
@@ -105,7 +103,7 @@ body::after{content:'';position:fixed;bottom:100px;right:-80px;width:280px;heigh
 .btn-rose{background:linear-gradient(135deg,var(--roseDark),#ff6b8a);color:#fff;box-shadow:0 4px 20px rgba(255,107,138,0.4)}
 .btn-rose:hover{box-shadow:0 6px 28px rgba(255,107,138,0.6)}
 .btn-gold{background:linear-gradient(135deg,#e6a817,var(--gold));color:#1a1000;box-shadow:0 4px 20px rgba(245,197,66,0.4)}
-.btn-purple{background:linear-gradient(135deg,#B89BFF,var(--lilac2));color:#fff;box-shadow:0 4px 20px rgba(184,155,255,0.45)}
+.btn-purple{background:linear-gradient(135deg,#5b21b6,var(--lilac));color:#fff;box-shadow:0 4px 20px rgba(124,58,237,0.45)}
 .btn-glass{background:var(--glass2);border:1px solid var(--border2);color:var(--txt);backdrop-filter:blur(8px)}
 .btn-glass:hover{background:rgba(255,255,255,0.18)}
 .btn-sm{padding:9px 16px;font-size:13px;border-radius:10px;width:auto}
@@ -147,12 +145,12 @@ textarea.finput{min-height:72px;resize:none;line-height:1.6}
 .photo-hint .ph-icon{font-size:36px;margin-bottom:6px;filter:drop-shadow(0 0 8px rgba(196,181,253,0.6))}
 
 /* ══════ MODAL ══════ */
-.moverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:200;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
+.moverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:200;align-items:flex-end;backdrop-filter:blur(4px)}
 .moverlay.open{display:flex}
 .msheet{
   background:linear-gradient(180deg,var(--bg2) 0%,var(--bg1) 100%);
   border:1px solid var(--border);border-radius:28px 28px 0 0;
-  padding:0 0 36px;width:100%;max-width:390px;max-height:92vh;overflow-y:auto;
+  padding:0 0 36px;width:100%;max-height:92vh;overflow-y:auto;
   animation:slideUp .3s cubic-bezier(.4,0,.2,1);
 }
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
@@ -171,18 +169,17 @@ textarea.finput{min-height:72px;resize:none;line-height:1.6}
 
 /* ══════ HOME ══════ */
 .hero{
-  background:linear-gradient(135deg,#FFD3E4 0%,#E5D4FF 55%,#FFE5C7 100%);
-  border:1.5px solid rgba(255,182,213,0.5);
+  background:linear-gradient(135deg,rgba(91,33,182,0.5) 0%,rgba(232,76,111,0.4) 100%);
+  border:1px solid rgba(196,181,253,0.25);
   border-radius:var(--radius2);padding:22px 20px;margin-bottom:14px;
   position:relative;overflow:hidden;cursor:pointer;
   transition:transform .2s;
-  box-shadow:0 8px 24px rgba(255,168,197,0.25);
 }
 .hero:active{transform:scale(.98)}
-.hero-glow{position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:radial-gradient(circle,rgba(255,217,138,0.5),transparent 70%);pointer-events:none}
-.hero h2{font-size:22px;font-weight:900;margin-bottom:6px;line-height:1.3;color:var(--txt)}
-.hero p{font-size:13px;color:var(--txt2);line-height:1.6}
-.hero-badge{display:inline-block;background:rgba(255,255,255,0.7);border:1px solid rgba(255,182,213,0.5);color:var(--roseDark);font-size:11px;font-weight:800;padding:3px 10px;border-radius:10px;margin-bottom:10px}
+.hero-glow{position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:radial-gradient(circle,rgba(245,197,66,0.35),transparent 70%);pointer-events:none}
+.hero h2{font-size:22px;font-weight:900;margin-bottom:6px;line-height:1.3}
+.hero p{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6}
+.hero-badge{display:inline-block;background:rgba(245,197,66,0.2);border:1px solid rgba(245,197,66,0.4);color:var(--gold2);font-size:11px;font-weight:800;padding:3px 10px;border-radius:10px;margin-bottom:10px}
 
 /* Avatar row */
 .av-row{
@@ -291,12 +288,12 @@ textarea.finput{min-height:72px;resize:none;line-height:1.6}
 .tface-kw{font-size:9px;opacity:.75;font-weight:600}
 .tarot-hint-txt{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:10px;text-align:center}
 .tarot-result-box{
-  background:linear-gradient(135deg,#FFF5FA,#F3E8FF);
-  border:1.5px solid rgba(184,155,255,0.5);border-radius:18px;padding:18px;
-  color:#4A3260;font-size:14px;line-height:1.85;white-space:pre-wrap;word-break:break-word;
-  margin-top:14px;box-shadow:0 6px 24px rgba(255,168,197,.25);
+  background:linear-gradient(135deg,rgba(30,18,64,0.9),rgba(80,25,65,0.8));
+  border:1px solid rgba(196,181,253,0.25);border-radius:16px;padding:18px;
+  color:rgba(255,255,255,.88);font-size:13px;line-height:1.9;white-space:pre-wrap;
+  margin-top:10px;
 }
-.result-title{font-size:16px;font-weight:900;color:#FF6FA3;margin-bottom:10px;text-align:center}
+.result-title{font-size:15px;font-weight:900;color:var(--gold);margin-bottom:10px}
 
 /* ══════ COMMUNITY ══════ */
 .seg{display:flex;background:rgba(255,255,255,0.06);border-radius:14px;padding:4px;gap:3px;margin-bottom:14px;border:1px solid var(--border)}
@@ -446,13 +443,6 @@ textarea.finput{min-height:72px;resize:none;line-height:1.6}
 .empty{text-align:center;padding:44px 20px;color:var(--txt3)}
 .empty-icon{font-size:52px;margin-bottom:14px;filter:drop-shadow(0 0 12px rgba(196,181,253,.4))}
 .empty p{font-size:14px;line-height:1.7}
-.pet-photos-wrap{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:6px}
-.pet-photo-card{background:var(--glass);border:1.5px solid var(--border2);border-radius:var(--radius2);overflow:hidden;cursor:pointer;transition:transform .18s,box-shadow .2s;box-shadow:0 6px 20px rgba(255,168,197,.18)}
-.pet-photo-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(255,168,197,.3)}
-.pet-photo-card:active{transform:scale(.98)}
-.pet-photo-img{position:relative;width:100%;height:220px;overflow:hidden;background:linear-gradient(135deg,#FFE0EC,#F3E4FF)}
-.pet-photo-edit{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.9);color:var(--roseDark);font-size:11px;font-weight:800;padding:5px 11px;border-radius:14px;backdrop-filter:blur(6px);box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.pet-photo-name{padding:12px 16px;font-size:15px;font-weight:800;color:var(--txt);display:flex;align-items:center}
 
 /* Section header */
 .sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
@@ -525,9 +515,9 @@ textarea.finput{min-height:72px;resize:none;line-height:1.6}
     <div class="tarot-hint-txt" id="tarotHint">반짝이는 카드 3장을 골라주세요 ✨</div>
     <div class="cards-grid" id="cardsGrid"></div>
     <button class="btn btn-gold" id="tarotReadBtn" onclick="doReading()" style="display:none">🔮 운세 보기</button>
+    <div id="tarotResult"></div>
+    <button class="btn btn-glass" onclick="reshuffleTarot()" style="margin-top:10px;font-size:13px">🔄 카드 다시 섞기</button>
   </div>
-  <div id="tarotResult"></div>
-  <button class="btn btn-glass" onclick="reshuffleTarot()" style="margin-top:10px;font-size:13px;width:100%">🔄 카드 다시 섞기</button>
 </div>
 
 <!-- ──── COMMUNITY ──── -->
@@ -700,7 +690,20 @@ const DEMO_POSTS=[
 ];
 
 // ═══════════════ INIT ═══════════════
-function save(){try{localStorage.setItem(SK,JSON.stringify(DB));return true;}catch(e){console.error('save failed',e);alert('저장 공간이 부족해요. 설정 > 데이터 백업에서 내보낸 뒤, 오래된 기록이나 사진을 정리해주세요.');return false;}}
+function save(){
+  try {
+    localStorage.setItem(SK,JSON.stringify(DB));
+    return true;
+  } catch(e) {
+    console.error('저장 오류:', e);
+    if(e.name === 'QuotaExceededError') {
+      alert('⚠️ 저장 용량이 초과되었어요!\n\n사진을 압축하거나\n오래된 기록을 삭제해주세요.');
+    } else {
+      alert('저장 중 오류가 발생했어요.\n다시 시도해주세요.');
+    }
+    return false;
+  }
+}
 function today(){return new Date().toISOString().split('T')[0]}
 function fmt(d){const dt=new Date(d);return `${dt.getMonth()+1}월 ${dt.getDate()}일`}
 
@@ -788,21 +791,7 @@ function renderHome(){
       </div></div>`;
     renderVlog(todayEntry);
   } else {
-    const pets=DB.pets||[];
-    if(pets.length){
-      const cards=pets.map(p=>{
-        const visual=p.imageData
-          ?`<img src="${p.imageData}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover">`
-          :`<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:72px;background:linear-gradient(135deg,#FFE0EC,#F3E4FF)">${p.emoji||'🐾'}</div>`;
-        return `<div class="pet-photo-card" onclick="startEntryFor('${p.id}')">
-          <div class="pet-photo-img">${visual}<div class="pet-photo-edit">📷 변경</div></div>
-          <div class="pet-photo-name">${p.emoji||'🐾'} ${p.name}<span style="font-size:11px;color:var(--txt3);font-weight:600;margin-left:6px">눌러서 오늘 기록</span></div>
-        </div>`;
-      }).join('');
-      tw.innerHTML=`<div class="pet-photos-wrap">${cards}</div>`;
-    } else {
-      tw.innerHTML=`<div class="empty" style="padding:24px 0"><div class="empty-icon">📷</div><p>아직 오늘 기록이 없어요<br>첫 번째 순간을 남겨보세요!</p></div>`;
-    }
+    tw.innerHTML=`<div class="empty" style="padding:24px 0"><div class="empty-icon">📷</div><p>아직 오늘 기록이 없어요<br>첫 번째 순간을 남겨보세요!</p></div>`;
     document.getElementById('vlogWrap').innerHTML='';
   }
 }
@@ -1083,14 +1072,22 @@ async function doReading(){
   const sel=tSelected.map(i=>tCards[i]);
   const petEl=document.querySelector('.pet-chip.on');
   const pn=petEl?petEl.textContent.trim():'우리 아이';
-  document.getElementById('tarotResult').innerHTML=`<div class="loading-wrap" style="color:rgba(255,255,255,.5)">우주의 기운을 읽고 있어요...<div class="dots"><span></span><span></span><span></span></div></div>`;
+  const resultEl = document.getElementById('tarotResult');
+  resultEl.innerHTML=`<div class="loading-wrap" style="color:rgba(255,255,255,.5)">우주의 기운을 읽고 있어요...<div class="dots"><span></span><span></span><span></span></div></div>`;
+  
   try{
     const txt=await callAI(`반려동물: ${pn}\n타로카드: ${sel.map(c=>`${c.emoji}${c.name}(${c.kw})`).join(', ')}\n\n오늘 ${pn}의 운세를 귀엽고 따뜻하게 해석해주세요. 오전/오후/저녁 흐름 + 오늘의 행운 간식 또는 행동 한 가지 추천. 150자 이내.`);
-    document.getElementById('tarotResult').innerHTML=`<div class="tarot-result-box"><div class="result-title">🔮 ${pn}의 오늘 운세</div>${txt}</div>`;
+    resultEl.innerHTML=`<div class="tarot-result-box"><div class="result-title">🔮 ${pn}의 오늘 운세</div>${txt}</div>`;
     addXP(5);
-  }catch(err){ console.error('타로 오류:',err); document.getElementById('tarotResult').innerHTML='<div class="tarot-result-box">오류가 발생했어요: '+(err&&err.message?err.message:'알 수 없는 오류')+'<br>다시 시도해주세요.</div>'; }
-  // 결과 영역으로 자동 스크롤
-  setTimeout(()=>{document.getElementById('tarotResult').scrollIntoView({behavior:'smooth',block:'center'});},120);
+    
+    // 모바일에서 결과로 스크롤
+    setTimeout(()=>{
+      resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+  }catch(e){ 
+    console.error('타로 오류:', e);
+    resultEl.innerHTML='<div class="tarot-result-box" style="color:rgba(255,100,100,0.9)">⚠️ 운세를 불러오는 중 오류가 발생했어요.<br>잠시 후 다시 시도해주세요.</div>'; 
+  }
   btn.textContent='🔄 다시 뽑기'; btn.disabled=false; btn.onclick=reshuffleTarot;
 }
 
@@ -1185,38 +1182,7 @@ function rProfile(c){
       </div>
     </div>
     <span style="color:var(--txt3);font-size:20px">›</span>
-  </div>`).join('')+`<div class="add-btn" onclick="openM('petModal')">➕ 반려동물 추가 등록</div>
-  <div style="margin-top:18px;padding:14px;border-radius:14px;background:var(--glass);border:1px solid var(--border)">
-    <div style="font-weight:800;margin-bottom:10px;font-size:14px">💾 데이터 백업</div>
-    <div style="display:flex;gap:8px">
-      <button class="btn btn-glass" onclick="exportBackup()" style="flex:1">📤 내보내기</button>
-      <button class="btn btn-glass" onclick="document.getElementById('importFile').click()" style="flex:1">📥 가져오기</button>
-    </div>
-    <div style="font-size:11px;color:var(--txt3);margin-top:8px;line-height:1.5">기기 변경/캐시 삭제 시 데이터가 사라질 수 있어요. 주기적으로 백업해주세요.</div>
-    <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importBackup(event)">
-  </div>`;
-}
-function exportBackup(){
-  const blob=new Blob([JSON.stringify(DB,null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url; a.download=`오늘도귀여웠어_백업_${today()}.json`;
-  a.click(); URL.revokeObjectURL(url);
-  alert('백업 파일이 저장되었어요! 🐾');
-}
-function importBackup(e){
-  const f=e.target.files[0]; if(!f) return;
-  const r=new FileReader();
-  r.onload=ev=>{
-    try{
-      const data=JSON.parse(ev.target.result);
-      if(!data.pets&&!data.entries){alert('올바른 백업 파일이 아니에요');return;}
-      if(!confirm('현재 데이터를 백업으로 덮어쓸까요?')) return;
-      DB=Object.assign({pets:[],entries:[],posts:[],msgs:[],xp:0,liked:[]},data);
-      save(); alert('복원 완료! 🎉'); location.reload();
-    }catch(err){alert('파일을 읽을 수 없어요');}
-  };
-  r.readAsText(f);
+  </div>`).join('')+`<div class="add-btn" onclick="openM('petModal')">➕ 반려동물 추가 등록</div>`;
 }
 function showPetDetail(id){
   const p=DB.pets.find(x=>x.id===id); if(!p) return;
@@ -1304,19 +1270,17 @@ function nextSlide(){if(slideI<slides.length-1){slideI++;showSlide();}}
 function closeSlide(){document.getElementById('slideshow').classList.remove('open');document.body.style.overflow='';}
 
 // ═══════════════ RECORD ═══════════════
-function openRecordModal(petId){
+function openRecordModal(){
   const pets=DB.pets||[];
   if(!pets.length){alert('먼저 반려동물을 등록해주세요 🐾');openM('petModal');return;}
-  const idx=petId?Math.max(0,pets.findIndex(p=>p.id===petId)):0;
-  F.recPet=pets[idx].id;
-  document.getElementById('recPetGrp').innerHTML=pets.map((p,i)=>`<div class="chip${i===idx?' on':''}" onclick="selC(this,'recPet','${p.id}')">${p.emoji||'🐾'} ${p.name}</div>`).join('');
+  F.recPet=pets[0].id;
+  document.getElementById('recPetGrp').innerHTML=pets.map((p,i)=>`<div class="chip${i===0?' on':''}" onclick="selC(this,'recPet','${p.id}')">${p.emoji||'🐾'} ${p.name}</div>`).join('');
   document.getElementById('rMemo').value='';
   document.getElementById('rPicPrev').style.display='none';
   document.getElementById('rPicHint').style.display='flex';
   rPicData=null;
   openM('recModal');
 }
-function startEntryFor(petId){ openRecordModal(petId); }
 function submitRec(){
   const petId=F.recPet||(DB.pets&&DB.pets[0]&&DB.pets[0].id);
   const memo=document.getElementById('rMemo').value.trim();
@@ -1326,8 +1290,29 @@ function submitRec(){
   DB.entries=DB.entries||[];
   const ti=DB.entries.findIndex(e=>e.date===today()&&e.petId===petId);
   if(ti>=0) DB.entries[ti]=entry; else DB.entries.push(entry);
-  if(!save()){if(ti>=0) DB.entries[ti]=entry; else DB.entries.pop();return;}
-  addXP(10); closeM('recModal'); renderHome();
+  
+  // 저장 시도
+  const saved = save();
+  if(saved) {
+    addXP(10); 
+    closeM('recModal'); 
+    renderHome();
+    // 성공 피드백
+    setTimeout(()=>{
+      const toast = document.createElement('div');
+      toast.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:rgba(76,175,80,0.95);color:white;padding:12px 24px;border-radius:20px;font-size:14px;font-weight:700;z-index:10000;box-shadow:0 4px 12px rgba(0,0,0,0.3)';
+      toast.textContent = '✅ 기록이 저장되었어요!';
+      document.body.appendChild(toast);
+      setTimeout(()=>toast.remove(), 2000);
+    }, 300);
+  } else {
+    // 저장 실패 시 entries 복구
+    if(ti>=0) {
+      // 원래 데이터 유지
+    } else {
+      DB.entries.pop(); // 방금 추가한 항목 제거
+    }
+  }
 }
 
 // ═══════════════ PET FORM ═══════════════
@@ -1372,39 +1357,43 @@ function selC(el,field,val){
   el.closest('.chip-group').querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
   el.classList.add('on'); F[field]=val;
 }
-function compressImage(file,maxSize,quality){
-  return new Promise((resolve,reject)=>{
-    const r=new FileReader();
-    r.onload=e=>{
-      const img=new Image();
-      img.onload=()=>{
-        let {width:w,height:h}=img;
-        if(w>h){if(w>maxSize){h=Math.round(h*maxSize/w);w=maxSize;}}
-        else{if(h>maxSize){w=Math.round(w*maxSize/h);h=maxSize;}}
-        const c=document.createElement('canvas');
-        c.width=w;c.height=h;
-        c.getContext('2d').drawImage(img,0,0,w,h);
-        try{resolve(c.toDataURL('image/jpeg',quality));}catch(err){reject(err);}
-      };
-      img.onerror=reject;
-      img.src=e.target.result;
-    };
-    r.onerror=reject;
-    r.readAsDataURL(file);
-  });
-}
-async function prevPic(inp,prevId,hintId){
+function prevPic(inp,prevId,hintId){
   const f=inp.files[0]; if(!f) return;
-  try{
-    const data=await compressImage(f,1024,0.82);
-    if(prevId==='pPicPrev') pPicData=data; else rPicData=data;
-    const el=document.getElementById(prevId);
-    el.src=data; el.style.display='block';
-    document.getElementById(hintId).style.display='none';
-  }catch(err){
-    alert('사진을 불러오지 못했어요. 다른 사진을 시도해주세요.');
-    console.error(err);
-  }
+  const r=new FileReader();
+  r.onload=e=>{
+    const img = new Image();
+    img.onload = () => {
+      // 이미지 압축 (모바일 저장 용량 절약)
+      const canvas = document.createElement('canvas');
+      let width = img.width;
+      let height = img.height;
+      
+      // 최대 크기 제한
+      const maxSize = 800;
+      if (width > height && width > maxSize) {
+        height = (height / width) * maxSize;
+        width = maxSize;
+      } else if (height > maxSize) {
+        width = (width / height) * maxSize;
+        height = maxSize;
+      }
+      
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+      
+      // 0.7 품질로 압축
+      const compressedData = canvas.toDataURL('image/jpeg', 0.7);
+      
+      if(prevId==='pPicPrev') pPicData=compressedData; else rPicData=compressedData;
+      document.getElementById(prevId).src=compressedData;
+      document.getElementById(prevId).style.display='block';
+      document.getElementById(hintId).style.display='none';
+    };
+    img.src = e.target.result;
+  };
+  r.readAsDataURL(f);
 }
 
 init();
