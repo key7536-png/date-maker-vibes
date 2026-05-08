@@ -1295,17 +1295,19 @@ function nextSlide(){if(slideI<slides.length-1){slideI++;showSlide();}}
 function closeSlide(){document.getElementById('slideshow').classList.remove('open');document.body.style.overflow='';}
 
 // ═══════════════ RECORD ═══════════════
-function openRecordModal(){
+function openRecordModal(petId){
   const pets=DB.pets||[];
   if(!pets.length){alert('먼저 반려동물을 등록해주세요 🐾');openM('petModal');return;}
-  F.recPet=pets[0].id;
-  document.getElementById('recPetGrp').innerHTML=pets.map((p,i)=>`<div class="chip${i===0?' on':''}" onclick="selC(this,'recPet','${p.id}')">${p.emoji||'🐾'} ${p.name}</div>`).join('');
+  const idx=petId?Math.max(0,pets.findIndex(p=>p.id===petId)):0;
+  F.recPet=pets[idx].id;
+  document.getElementById('recPetGrp').innerHTML=pets.map((p,i)=>`<div class="chip${i===idx?' on':''}" onclick="selC(this,'recPet','${p.id}')">${p.emoji||'🐾'} ${p.name}</div>`).join('');
   document.getElementById('rMemo').value='';
   document.getElementById('rPicPrev').style.display='none';
   document.getElementById('rPicHint').style.display='flex';
   rPicData=null;
   openM('recModal');
 }
+function startEntryFor(petId){ openRecordModal(petId); }
 function submitRec(){
   const petId=F.recPet||(DB.pets&&DB.pets[0]&&DB.pets[0].id);
   const memo=document.getElementById('rMemo').value.trim();
