@@ -1159,7 +1159,38 @@ function rProfile(c){
       </div>
     </div>
     <span style="color:var(--txt3);font-size:20px">›</span>
-  </div>`).join('')+`<div class="add-btn" onclick="openM('petModal')">➕ 반려동물 추가 등록</div>`;
+  </div>`).join('')+`<div class="add-btn" onclick="openM('petModal')">➕ 반려동물 추가 등록</div>
+  <div style="margin-top:18px;padding:14px;border-radius:14px;background:var(--glass);border:1px solid var(--border)">
+    <div style="font-weight:800;margin-bottom:10px;font-size:14px">💾 데이터 백업</div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-glass" onclick="exportBackup()" style="flex:1">📤 내보내기</button>
+      <button class="btn btn-glass" onclick="document.getElementById('importFile').click()" style="flex:1">📥 가져오기</button>
+    </div>
+    <div style="font-size:11px;color:var(--txt3);margin-top:8px;line-height:1.5">기기 변경/캐시 삭제 시 데이터가 사라질 수 있어요. 주기적으로 백업해주세요.</div>
+    <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importBackup(event)">
+  </div>`;
+}
+function exportBackup(){
+  const blob=new Blob([JSON.stringify(DB,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=`오늘도귀여웠어_백업_${today()}.json`;
+  a.click(); URL.revokeObjectURL(url);
+  alert('백업 파일이 저장되었어요! 🐾');
+}
+function importBackup(e){
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    try{
+      const data=JSON.parse(ev.target.result);
+      if(!data.pets&&!data.entries){alert('올바른 백업 파일이 아니에요');return;}
+      if(!confirm('현재 데이터를 백업으로 덮어쓸까요?')) return;
+      DB=Object.assign({pets:[],entries:[],posts:[],msgs:[],xp:0,liked:[]},data);
+      save(); alert('복원 완료! 🎉'); location.reload();
+    }catch(err){alert('파일을 읽을 수 없어요');}
+  };
+  r.readAsText(f);
 }
 function showPetDetail(id){
   const p=DB.pets.find(x=>x.id===id); if(!p) return;
