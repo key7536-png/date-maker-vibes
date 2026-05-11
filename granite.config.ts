@@ -9,11 +9,11 @@ export default defineConfig({
   web: {
     host: 'localhost',
     port: 3000,
-    commands: {
-      dev: 'npm run dev',
-      build: 'npm run build',
+  commands: {
+      dev: 'vite dev',
+      build: 'vite build',
     },
   },
   permissions: [],
-  outdir: 'dist/client',
+  outdir: 'dist',
 });
