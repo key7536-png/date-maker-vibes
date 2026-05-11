@@ -478,6 +478,9 @@ textarea.finput{min-height:72px;resize:none;line-height:1.6}
   <!-- Pet check -->
   <div id="homePetAlert"></div>
 
+  <!-- Pet selector (multiple pets) -->
+  <div class="pet-chips-row" id="homePetRow" style="margin-bottom:14px"></div>
+
   <!-- Avatar -->
   <div class="glass av-row" onclick="goPage('my',document.querySelectorAll('.bnav-btn')[3])">
     <div class="av-wrap">
@@ -660,6 +663,7 @@ let tSelected=[],tCards=[];
 let slides=[],slideI=0;
 let commTab='tips',myTab='profile';
 let vlogDateFilter='all'; // 날짜 필터: all, today, yesterday, week
+let homePetId=null; // 홈에서 선택된 반려동물 id (null이면 첫 번째)
 
 const LEVELS=[
   {lv:1,name:'새싹 집사',emoji:'🌱',max:50,pct:10},
@@ -759,7 +763,8 @@ function updateXpUI(){
 function renderHome(){
   // pet alert
   const alert=document.getElementById('homePetAlert');
-  if(!DB.pets||!DB.pets.length){
+  const pets=DB.pets||[];
+  if(!pets.length){
     alert.innerHTML=`<div class="glass" style="padding:14px 16px;margin-bottom:14px;border-color:rgba(196,181,253,.35);cursor:pointer" onclick="openM('petModal')">
       <div style="display:flex;align-items:center;gap:10px">
         <span style="font-size:28px;filter:drop-shadow(0 0 6px rgba(196,181,253,.8))">🐾</span>
@@ -769,8 +774,25 @@ function renderHome(){
       </div></div>`;
   } else { alert.innerHTML=''; }
 
-  // streak
-  const dates=new Set((DB.entries||[]).map(e=>e.date));
+  // pet selector chips
+  const petRow=document.getElementById('homePetRow');
+  if(pets.length){
+    // 선택된 펫이 없거나 삭제됐으면 첫 번째로
+    if(!homePetId || !pets.find(p=>p.id===homePetId)) homePetId=pets[0].id;
+    petRow.style.display='flex';
+    petRow.innerHTML=pets.map(p=>`<div class="pet-chip${p.id===homePetId?' on':''}" onclick="selectHomePet('${p.id}')">${p.emoji||'🐾'} ${p.name}</div>`).join('');
+  } else {
+    petRow.style.display='none';
+    petRow.innerHTML='';
+    homePetId=null;
+  }
+
+  // 선택된 펫의 기록만 필터링
+  const allEntries=DB.entries||[];
+  const entries=homePetId?allEntries.filter(e=>e.petId===homePetId):allEntries;
+
+  // streak (선택된 펫 기준)
+  const dates=new Set(entries.map(e=>e.date));
   const sg=document.getElementById('streakGrid');
   sg.innerHTML='';
   const dn=['일','월','화','수','목','금','토'];
@@ -781,12 +803,12 @@ function renderHome(){
     const div=document.createElement('div');
     div.className='s-day '+cls;
     div.innerHTML=`<div class="s-icon">${dates.has(key)||i===0?'🐾':'·'}</div><div>${dn[d.getDay()]}</div>`;
-    div.onclick=()=>{ if(dates.has(key)){ const e=(DB.entries||[]).find(x=>x.date===key); if(e) openSlide([(DB.entries||[]).findIndex(x=>x.date===key)],0);} };
+    div.onclick=()=>{ if(dates.has(key)){ const idx=allEntries.findIndex(x=>x.date===key&&(!homePetId||x.petId===homePetId)); if(idx>=0) openSlide([idx],0);} };
     sg.appendChild(div);
   }
 
-  // today entry
-  const todayEntry=(DB.entries||[]).find(e=>e.date===today());
+  // today entry (선택된 펫)
+  const todayEntry=entries.find(e=>e.date===today());
   const tw=document.getElementById('todayWrap');
   if(todayEntry){
     const img=todayEntry.imageData?`<img class="entry-img" src="${todayEntry.imageData}" alt="" style="max-height:none">`:`<div class="entry-img">${todayEntry.petEmoji||'🐾'}</div>`;
@@ -802,9 +824,15 @@ function renderHome(){
       </div></div>`;
     renderVlog(todayEntry);
   } else {
-    tw.innerHTML=`<div class="empty" style="padding:24px 0"><div class="empty-icon">📷</div><p>아직 오늘 기록이 없어요<br>첫 번째 순간을 남겨보세요!</p></div>`;
+    const petName=homePetId?(pets.find(p=>p.id===homePetId)||{}).name:'';
+    tw.innerHTML=`<div class="empty" style="padding:24px 0"><div class="empty-icon">📷</div><p>${petName?petName+'의 ':''}오늘 기록이 아직 없어요<br>첫 번째 순간을 남겨보세요!</p></div>`;
     document.getElementById('vlogWrap').innerHTML='';
   }
+}
+
+function selectHomePet(id){
+  homePetId=id;
+  renderHome();
 }
 
 function renderVlog(entry){
