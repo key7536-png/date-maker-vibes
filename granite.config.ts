@@ -2,7 +2,7 @@ import { defineConfig } from '@apps-in-toss/web-framework/config';
 export default defineConfig({
   appName: 'ohdogwiyeoweo',
   brand: {
-    displayName: '오늘도 귀여웠어',
+    displayName: 'Today Was Cute',
     primaryColor: '#FF6B9D',
     icon: null,
   },
