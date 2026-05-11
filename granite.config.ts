@@ -8,8 +8,8 @@ export default defineConfig({
   },
   web: {
     host: 'localhost',
-    port: 3000,
-  commands: {
+    port: 5173,
+    commands: {
       dev: 'vite dev',
       build: 'vite build',
     },
