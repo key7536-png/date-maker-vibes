@@ -7,9 +7,9 @@
     "dev": "vite dev",
     "build": "vite build",
     "build:dev": "vite build --mode development",
-    "build:ait": "apps-in-toss build",
-    "ait:dev": "apps-in-toss dev",
-    "ait:login": "apps-in-toss login",
+    "build:ait": "ait build",
+    "ait:dev": "ait dev",
+    "ait:login": "ait login",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write ."
