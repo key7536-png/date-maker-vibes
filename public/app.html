@@ -642,7 +642,18 @@ textarea.finput{min-height:72px;resize:none;line-height:1.6}
 <script>
 // ═══════════════ DATA ═══════════════
 const SK='paw3';
-let DB=JSON.parse(localStorage.getItem(SK)||'{"pets":[],"entries":[],"posts":[],"msgs":[],"xp":0,"liked":[]}');
+const DEFAULT_DB={pets:[],entries:[],posts:[],msgs:[],xp:0,liked:[]};
+let DB;
+try {
+  const raw = localStorage.getItem(SK);
+  DB = raw ? JSON.parse(raw) : {...DEFAULT_DB};
+} catch(e) {
+  console.error('초기 로드 실패:', e);
+  DB = {...DEFAULT_DB};
+  alert('⚠️ 브라우저 저장소에 접근할 수 없어요.\n시크릿/프라이빗 모드를 끄고 다시 시도해주세요.');
+}
+// 누락 필드 보강
+for (const k in DEFAULT_DB) if (DB[k] === undefined) DB[k] = Array.isArray(DEFAULT_DB[k]) ? [] : DEFAULT_DB[k];
 let F={pType:'',pGender:'',recPet:''};
 let pPicData=null,rPicData=null;
 let tSelected=[],tCards=[];
